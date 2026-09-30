@@ -1,0 +1,518 @@
+/* =========================================================
+   CORES DO TEMA CLARO (padrão)
+   Amarelo como destaque do tema; rosa e roxo da identidade do sistema.
+   ========================================================= */
+:root {
+    --amarelo: #f5c400;
+    --amarelo-texto: #8a6d00;      /* amarelo escuro para textos legíveis no fundo claro */
+    --amarelo-suave: #fff7d6;      /* fundo claro do banner e dos destaques */
+    --rosa: #e75ea8;
+    --roxo: #7b4bb7;
+
+    --fundo: #ffffff;
+    --card: #ffffff;
+    --texto: #1a1a1a;
+    --texto-suave: #55555f;
+    --borda: #ece6d4;
+    --sombra: rgba(0, 0, 0, 0.06);
+
+    /* TAMANHO BASE DAS LETRAS
+       A− e A+ mudam SOMENTE esta variável. Só os textos usam
+       calc(var(--fonte-base) * número). Ícones, cards, laço e
+       espaçamentos estão em px e não mudam de tamanho. */
+    --fonte-base: 16px;
+}
+
+/* =========================================================
+   CORES DO TEMA ESCURO — amarelo, rosa e roxo não mudam
+   ========================================================= */
+[data-tema="escuro"] {
+    --amarelo-texto: #f5c400;
+    --amarelo-suave: #221d0a;
+
+    --fundo: #0e0e10;
+    --card: #151518;
+    --texto: #ffffff;
+    --texto-suave: #c9c9d1;
+    --borda: #34302a;
+    --sombra: rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;            /* impede rolagem horizontal */
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    font-size: var(--fonte-base);
+    line-height: 1.55;
+    background-color: var(--fundo);
+    color: var(--texto);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.ic {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+a {
+    color: var(--roxo);
+}
+
+[data-tema="escuro"] a {
+    color: #c3a1f2;
+}
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+.topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding: 12px clamp(14px, 4vw, 32px);
+    border-bottom: 3px solid var(--amarelo);
+    background-color: var(--fundo);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.logo-icone {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+}
+
+.logo-texto strong {
+    display: block;
+    font-size: calc(var(--fonte-base) * 1.05);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+}
+
+.pagina-atual {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--amarelo-texto);
+    font-size: calc(var(--fonte-base) * 0.9);
+    font-weight: 700;
+}
+
+.laco-mini {
+    width: 16px;
+    height: 16px;
+    fill: var(--amarelo);
+}
+
+.btn-sair {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background-color: var(--card);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.9);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-sair:hover {
+    border-color: var(--rosa);
+    color: var(--rosa);
+}
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+.conteudo {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px clamp(12px, 4vw, 32px) 32px;
+}
+
+/* ---------- Banner ---------- */
+.banner {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 28px;
+    padding: 28px 32px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--amarelo-suave), var(--card));
+    border: 1px solid var(--borda);
+    margin-bottom: 24px;
+}
+
+.banner-laco {
+    width: 120px;
+    height: 170px;
+}
+
+.banner-titulo {
+    min-width: 0;
+}
+
+.banner-titulo h1 {
+    margin: 0;
+    overflow-wrap: break-word;
+    font-size: calc(var(--fonte-base) * 2.6);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+}
+
+.frase {
+    margin: 10px 0 14px;
+    color: var(--texto-suave);
+    font-size: calc(var(--fonte-base) * 1.15);
+    font-style: italic;
+}
+
+.barras {
+    display: flex;
+    gap: 6px;
+}
+
+.barra {
+    width: 34px;
+    height: 5px;
+    border-radius: 999px;
+}
+
+.barra-amarela { background-color: var(--amarelo); }
+.barra-rosa    { background-color: var(--rosa); }
+.barra-roxa    { background-color: var(--roxo); }
+
+.banner-texto {
+    margin: 0;
+    padding-left: 24px;
+    border-left: 2px solid var(--amarelo);
+    color: var(--texto);
+    font-size: calc(var(--fonte-base) * 0.95);
+}
+
+/* ---------- Cards ---------- */
+.card {
+    padding: 24px;
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    background-color: var(--card);
+    box-shadow: 0 2px 10px var(--sombra);
+}
+
+.card-largo {
+    margin-bottom: 24px;
+}
+
+.grade-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.card-topo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.icone-circulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: var(--amarelo);
+    color: #1a1a1a;                /* ícone escuro sobre amarelo nos dois temas */
+}
+
+.icone-circulo .ic {
+    width: 22px;
+    height: 22px;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: calc(var(--fonte-base) * 1.25);
+    line-height: 1.25;
+}
+
+.card p {
+    margin: 0 0 12px;
+    font-size: calc(var(--fonte-base) * 0.95);
+}
+
+.colunas-texto {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 32px;
+}
+
+/* Lista com marcadores amarelos */
+.lista {
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+}
+
+.lista li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    font-size: calc(var(--fonte-base) * 0.95);
+}
+
+.lista li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 0.6em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--amarelo);
+}
+
+/* Observação no fim do card */
+.card .nota {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background-color: var(--amarelo-suave);
+    font-size: calc(var(--fonte-base) * 0.85);
+}
+
+.nota .ic {
+    color: var(--amarelo-texto);
+    margin-top: 2px;
+}
+
+/* ---------- Onde buscar ajuda ---------- */
+.card .emergencia {
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    border-left: 4px solid var(--rosa);
+    border-radius: 8px;
+    background-color: rgba(231, 94, 168, 0.1);
+    font-weight: 600;
+}
+
+.servicos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 16px;
+}
+
+.servico {
+    padding: 16px;
+    border: 1px solid var(--borda);
+    border-top: 4px solid var(--amarelo);
+    border-radius: 12px;
+    background-color: var(--card);
+}
+
+.servico h3 {
+    margin: 0 0 4px;
+    color: var(--roxo);
+    font-size: calc(var(--fonte-base) * 1);
+}
+
+[data-tema="escuro"] .servico h3 {
+    color: #c3a1f2;
+}
+
+.servico .numero {
+    display: inline-block;
+    margin-bottom: 4px;
+    color: var(--texto);
+    font-size: calc(var(--fonte-base) * 1.6);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.servico .numero:hover {
+    color: var(--rosa);
+}
+
+.servico p {
+    margin: 0;
+    color: var(--texto-suave);
+    font-size: calc(var(--fonte-base) * 0.85);
+}
+
+/* =========================================================
+   BARRA INFERIOR (fica presa no rodapé da tela ao rolar)
+   ========================================================= */
+.rodape {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px clamp(14px, 4vw, 32px);
+    border-top: 1px solid var(--borda);
+    background-color: var(--fundo);
+    box-shadow: 0 -4px 12px var(--sombra);
+}
+
+.btn-inicio {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 40px;
+    padding: 0 16px 0 10px;
+    border-radius: 999px;
+    background-color: var(--rosa);
+    color: #ffffff;
+    font-size: calc(var(--fonte-base) * 0.9);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+[data-tema="escuro"] .btn-inicio {
+    color: #ffffff;
+}
+
+.btn-inicio:hover {
+    filter: brightness(1.08);
+}
+
+.acessibilidade {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-acess {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 8px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background-color: var(--card);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.9);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-acess:hover {
+    border-color: var(--roxo);
+}
+
+/* Sol (amarelo) no tema claro, lua (roxa) no escuro */
+.icone-sol { color: var(--amarelo-texto); }
+.icone-lua { color: var(--roxo); fill: var(--roxo); display: none; }
+
+[data-tema="escuro"] .icone-sol { display: none; }
+[data-tema="escuro"] .icone-lua { display: block; }
+
+/* Contorno visível ao navegar com o teclado (Tab) */
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--roxo);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+/* Tablets: banner em duas partes, textos em uma coluna */
+@media (max-width: 900px) {
+    .banner {
+        grid-template-columns: 100px minmax(0, 1fr);
+    }
+
+    .banner-laco {
+        width: 100px;
+        height: 142px;
+    }
+
+    .banner-texto {
+        grid-column: 1 / -1;
+        padding-left: 0;
+        padding-top: 16px;
+        border-left: none;
+        border-top: 2px solid var(--amarelo);
+    }
+
+    .colunas-texto,
+    .grade-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Celulares */
+@media (max-width: 560px) {
+    .logo-icone {
+        width: 38px;
+        height: 38px;
+    }
+
+    /* Banner em uma coluna: laço em cima, título e texto embaixo */
+    .banner {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 16px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .banner-laco {
+        width: 60px;
+        height: 85px;
+    }
+
+    .barras {
+        justify-content: center;
+    }
+
+    .banner-texto {
+        text-align: left;
+    }
+
+    .banner-titulo h1 {
+        font-size: calc(var(--fonte-base) * 1.9);
+    }
+
+    .card {
+        padding: 18px;
+    }
+}

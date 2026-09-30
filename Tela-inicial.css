@@ -1,0 +1,778 @@
+/* =========================================================
+   CORES DO TEMA CLARO (padrão) — mesmas das telas de Cadastro e Login
+   ========================================================= */
+:root {
+    --rosa: #e75ea8;
+    --roxo: #7b4bb7;
+    --amarelo: #f5c400;            /* Setembro Amarelo: igual nos dois temas */
+
+    --fundo: #ffffff;
+    --card: #ffffff;
+    --tinta: #f8f0fc;              /* fundo claro do topo dos cards */
+    --tinta-rosa: #fdecf5;         /* item ativo do menu */
+    --texto: #1a1a1a;
+    --texto-suave: #5b5b66;
+    --campo-fundo: #ffffff;
+    --campo-bloqueado: #f6f5f8;    /* campos quando o prontuário está salvo */
+    --borda: #dcd6e4;
+    --placeholder: #8a8a99;
+    --erro: #d93030;
+    --sucesso: #1f9d55;
+    --sombra: rgba(0, 0, 0, 0.06);
+
+    /* TAMANHO BASE DAS LETRAS
+       A− e A+ mudam SOMENTE esta variável. Apenas os textos usam
+       calc(var(--fonte-base) * número). Caixas, ícones, cards e
+       espaçamentos estão em px, então não sofrem efeito de zoom. */
+    --fonte-base: 16px;
+
+    color-scheme: light;           /* calendário e relógio claros */
+}
+
+/* =========================================================
+   CORES DO TEMA ESCURO — rosa, roxo e amarelo não mudam
+   ========================================================= */
+[data-tema="escuro"] {
+    --fundo: #0e0e10;
+    --card: #151518;
+    --tinta: #1f1726;
+    --tinta-rosa: #2a1522;
+    --texto: #ffffff;
+    --texto-suave: #c9c9d1;
+    --campo-fundo: #1a1a1f;
+    --campo-bloqueado: #202026;
+    --borda: #3a3842;
+    --placeholder: #9a98a6;
+    --erro: #ff6b6b;
+    --sucesso: #4ade80;
+    --sombra: rgba(0, 0, 0, 0.4);
+
+    color-scheme: dark;            /* calendário e relógio escuros */
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;            /* impede rolagem horizontal */
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    font-size: var(--fonte-base);
+    background-color: var(--fundo);
+    color: var(--texto);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Ícones em linha (todos os SVGs com a classe .ic) */
+.ic {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Onda decorativa: fica fixa no canto, atrás do menu */
+.onda {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    height: auto;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* =========================================================
+   TOPO
+   ========================================================= */
+.topo {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding: 12px 24px;
+    background-color: var(--fundo);
+    border-bottom: 1px solid var(--borda);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icone {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+}
+
+.logo-texto strong {
+    display: block;
+    font-size: calc(var(--fonte-base) * 1.05);
+    letter-spacing: 0.02em;
+}
+
+.logo-texto span {
+    display: block;
+    font-size: calc(var(--fonte-base) * 0.9);
+    font-weight: 700;
+    color: var(--roxo);
+}
+
+.ferramentas {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btn-acess {
+    min-width: 38px;
+    height: 36px;
+    padding: 0 8px;
+    border: 1px solid var(--borda);
+    border-radius: 9px;
+    background-color: var(--campo-fundo);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.9);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-acess:hover {
+    border-color: var(--roxo);
+}
+
+/* Botão de tema: pílula rosa */
+.btn-tema {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--rosa);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.85);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-tema .ic {
+    width: 18px;
+    height: 18px;
+}
+
+/* Mostra sol/"Tema claro" no claro e lua/"Tema escuro" no escuro */
+.icone-lua,
+.texto-escuro {
+    display: none;
+}
+
+[data-tema="escuro"] .icone-sol,
+[data-tema="escuro"] .texto-claro {
+    display: none;
+}
+
+[data-tema="escuro"] .icone-lua,
+[data-tema="escuro"] .texto-escuro {
+    display: inline;
+}
+
+.btn-sair {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    margin-left: 6px;
+    padding: 0 12px;
+    border: none;
+    border-left: 1px solid var(--borda);
+    background: none;
+    color: var(--texto);
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.9);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-sair:hover {
+    color: var(--rosa);
+}
+
+/* =========================================================
+   ESTRUTURA: menu lateral + conteúdo
+   ========================================================= */
+.estrutura {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+}
+
+.menu {
+    position: relative;
+    z-index: 1;
+    padding: 20px 14px;
+    border-right: 1px solid var(--borda);
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: sticky;
+    top: 20px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    color: var(--texto);
+    font-size: calc(var(--fonte-base) * 0.95);
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background-color: var(--tinta);
+}
+
+.menu a.ativo {
+    background-color: var(--tinta-rosa);
+    color: var(--rosa);
+    font-weight: 700;
+}
+
+/* Laço do Setembro Amarelo: preenchido de amarelo */
+.laco {
+    fill: var(--amarelo);
+    stroke: none;
+    width: 22px;
+    height: 22px;
+}
+
+.principal {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    width: 100%;
+    max-width: 1200px;
+    padding: 24px;
+}
+
+/* =========================================================
+   CABEÇALHO DA PÁGINA
+   ========================================================= */
+.cabecalho-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.cabecalho-pagina h1 {
+    margin: 0 0 4px;
+    font-size: calc(var(--fonte-base) * 1.5);
+}
+
+.cabecalho-pagina p {
+    margin: 0;
+    color: var(--texto-suave);
+    font-size: calc(var(--fonte-base) * 0.85);
+}
+
+.resumo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background-color: var(--tinta);
+}
+
+.resumo .ic {
+    width: 28px;
+    height: 28px;
+    color: var(--roxo);
+}
+
+.resumo p {
+    margin: 0;
+    color: var(--texto);
+    font-size: calc(var(--fonte-base) * 0.85);
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+.campos {
+    min-width: 0;                  /* sem isso o fieldset pode causar rolagem horizontal */
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.card {
+    margin-bottom: 18px;
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    background-color: var(--card);
+    box-shadow: 0 2px 8px var(--sombra);
+    overflow: hidden;
+}
+
+.card-topo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background-color: var(--tinta);
+    border-bottom: 1px solid var(--borda);
+}
+
+.card-topo .ic {
+    width: 24px;
+    height: 24px;
+    color: var(--rosa);
+}
+
+.card-topo h2 {
+    margin: 0;
+    color: var(--roxo);
+    font-size: calc(var(--fonte-base) * 1.1);
+}
+
+[data-tema="escuro"] .card-topo h2 {
+    color: #ffffff;
+}
+
+.card-corpo {
+    padding: 18px;
+}
+
+.subtitulo {
+    margin: 20px 0 10px;
+    color: var(--roxo);
+    font-size: calc(var(--fonte-base) * 0.9);
+}
+
+/* Grades responsivas: as colunas se ajustam sozinhas à largura.
+   min(100%, ...) garante 1 coluna em telas pequenas, sem rolagem lateral. */
+.grade,
+.grade-2 {
+    display: grid;
+    gap: 14px 18px;
+}
+
+.grade {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+}
+
+/* Sempre 2 colunas (vira 1 coluna no celular), para manter os pares
+   "Alergias + Especificação" e "Medicamentos + Quais" lado a lado */
+.grade-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.espaco-topo {
+    margin-top: 14px;
+}
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+.campo {
+    min-width: 0;
+}
+
+.rotulo {
+    display: block;
+    margin-bottom: 6px;
+    font-size: calc(var(--fonte-base) * 0.85);
+    font-weight: 700;
+}
+
+.obrigatorio {
+    color: var(--rosa);
+}
+
+.caixa {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background-color: var(--campo-fundo);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.caixa:focus-within {
+    border-color: var(--roxo);
+    box-shadow: 0 0 0 3px rgba(123, 75, 183, 0.2);
+}
+
+/* Caixa para textos longos (altura livre) */
+.caixa-texto {
+    height: auto;
+    align-items: stretch;
+    padding: 10px 12px;
+}
+
+.caixa input,
+.caixa select,
+.caixa textarea {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--texto);
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.9);
+}
+
+.caixa input,
+.caixa select {
+    height: 100%;
+    padding: 0;
+}
+
+.caixa select {
+    cursor: pointer;
+}
+
+/* Tema escuro: lista de opções do campo Sexo com fundo escuro e letras brancas.
+   Alguns navegadores (ex.: Chrome no Windows) só escurecem a lista
+   quando o fundo e a cor são definidos direto no <option>. */
+[data-tema="escuro"] .caixa select option {
+    background-color: #1a1a1f;
+    color: #ffffff;
+}
+
+.caixa textarea {
+    min-height: 48px;
+    padding: 0;
+    resize: vertical;
+    line-height: 1.4;
+}
+
+.caixa input::placeholder,
+.caixa textarea::placeholder {
+    color: var(--placeholder);
+}
+
+.ic-campo {
+    color: var(--texto-suave);
+}
+
+.unidade {
+    flex-shrink: 0;
+    color: var(--texto-suave);
+    font-size: calc(var(--fonte-base) * 0.8);
+}
+
+/* Campo com erro (classe colocada pelo JavaScript) */
+.campo.invalido .caixa {
+    border-color: var(--erro);
+}
+
+.erro {
+    display: block;
+    margin-top: 5px;
+    color: var(--erro);
+    font-size: calc(var(--fonte-base) * 0.8);
+}
+
+.erro:empty {
+    display: none;
+}
+
+/* Campo desligado (ex.: "Especificação da alergia" quando Alergias = Não) */
+.campo.desativado .caixa {
+    opacity: 0.5;
+}
+
+/* Todos os campos bloqueados (prontuário salvo, antes de clicar em Editar).
+   O texto continua com a cor normal para ficar fácil de ler. */
+.campos:disabled .caixa {
+    background-color: var(--campo-bloqueado);
+}
+
+.campos:disabled input,
+.campos:disabled select,
+.campos:disabled textarea {
+    color: var(--texto);
+    -webkit-text-fill-color: var(--texto);
+    opacity: 1;
+    cursor: default;
+}
+
+/* Opções Sim / Não */
+.opcoes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    min-height: 44px;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: calc(var(--fonte-base) * 0.9);
+    cursor: pointer;
+}
+
+.opcao input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--roxo);
+    cursor: pointer;
+}
+
+/* Escala de dor 0 a 10: o círculo é o <span>, o radio fica escondido */
+.escala-dor {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dor-opcao {
+    position: relative;
+    cursor: pointer;
+}
+
+.dor-opcao input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.dor-opcao span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--borda);
+    border-radius: 50%;
+    background-color: var(--campo-fundo);
+    font-size: calc(var(--fonte-base) * 0.85);
+    font-weight: 600;
+    transition: background-color 0.15s, border-color 0.15s;
+}
+
+.dor-opcao:hover span {
+    border-color: var(--roxo);
+}
+
+.dor-opcao input:checked + span {
+    background-color: var(--roxo);
+    border-color: var(--roxo);
+    color: #ffffff;
+}
+
+.dor-opcao input:focus-visible + span {
+    outline: 3px solid var(--rosa);
+    outline-offset: 2px;
+}
+
+.campos:disabled .dor-opcao {
+    cursor: default;
+}
+
+/* =========================================================
+   MENSAGEM E BOTÕES
+   ========================================================= */
+.mensagem {
+    margin: 4px 0 14px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: calc(var(--fonte-base) * 0.9);
+    font-weight: 600;
+}
+
+.mensagem:empty {
+    display: none;
+}
+
+.mensagem.sucesso {
+    color: var(--sucesso);
+    background-color: rgba(31, 157, 85, 0.1);
+}
+
+.mensagem.erro {
+    color: var(--erro);
+    background-color: rgba(217, 48, 48, 0.08);
+}
+
+.mensagem.info {
+    color: var(--texto);
+    background-color: var(--tinta);
+}
+
+.acoes {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 20px;
+}
+
+.acoes-direita {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 46px;
+    padding: 0 22px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.95);
+    font-weight: 700;
+    cursor: pointer;
+    transition: filter 0.15s, opacity 0.15s;
+}
+
+.btn-cancelar,
+.btn-editar {
+    border: 1px solid var(--rosa);
+    background-color: var(--card);
+    color: var(--rosa);
+}
+
+.btn-salvar {
+    border: none;
+    background-color: var(--roxo);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(123, 75, 183, 0.3);
+}
+
+.btn:hover:not(:disabled) {
+    filter: brightness(1.08);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+    box-shadow: none;
+}
+
+/* Contorno visível ao navegar com o teclado (Tab) */
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--roxo);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+/* Tablets e celulares: o menu vai para cima do conteúdo */
+@media (max-width: 900px) {
+    .estrutura {
+        grid-template-columns: 1fr;
+    }
+
+    .menu {
+        padding: 10px 14px;
+        border-right: none;
+        border-bottom: 1px solid var(--borda);
+    }
+
+    .menu ul {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .menu a {
+        padding: 9px 12px;
+    }
+
+    .onda {
+        display: none;
+    }
+}
+
+/* Tablets menores e celulares: grade de 2 colunas vira 1 */
+@media (max-width: 700px) {
+    .grade-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+    .topo {
+        padding: 12px 14px;
+    }
+
+    .logo-icone {
+        width: 38px;
+        height: 38px;
+    }
+
+    .principal {
+        padding: 16px 12px;
+    }
+
+    .card-corpo {
+        padding: 14px;
+    }
+
+    .card-topo {
+        padding: 12px 14px;
+    }
+
+    .resumo {
+        width: 100%;
+    }
+
+    /* Botões ocupam a largura toda, um embaixo do outro */
+    .acoes,
+    .acoes-direita {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,389 @@
+/* =========================================================
+   CORES DO TEMA CLARO (padrão)
+   As cores ficam em variáveis. Para trocar de tema, basta
+   mudar os valores das variáveis — o resto do CSS não muda.
+   ========================================================= */
+:root {
+    --rosa: #e75ea8;
+    --roxo: #7b4bb7;
+    --roxo-link: #6b3fa8;
+
+    --fundo: #ffffff;
+    --texto: #1a1a1a;
+    --texto-suave: #5b5b66;
+    --campo-fundo: #ffffff;
+    --borda: #dcd6e4;
+    --placeholder: #8a8a99;
+    --erro: #d93030;
+    --sucesso: #1f9d55;
+    --sombra: rgba(0, 0, 0, 0.06);
+
+    /* TAMANHO BASE DAS LETRAS
+       Os botões A− e A+ mudam SOMENTE esta variável.
+       Todos os textos usam calc(var(--fonte-base) * número),
+       então só as letras mudam. Tamanhos de caixas, ícones,
+       botões e espaçamentos estão em px e não mudam. */
+    --fonte-base: 16px;
+}
+
+/* =========================================================
+   CORES DO TEMA ESCURO
+   Ativado quando o JavaScript coloca data-tema="escuro" no <html>.
+   Rosa e roxo continuam iguais.
+   ========================================================= */
+[data-tema="escuro"] {
+    --roxo-link: #b388f0;
+
+    --fundo: #0e0e10;
+    --texto: #ffffff;
+    --texto-suave: #c9c9d1;
+    --campo-fundo: #1a1a1f;
+    --borda: #3a3842;
+    --placeholder: #9a98a6;
+    --erro: #ff6b6b;
+    --sucesso: #4ade80;
+    --sombra: rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;               /* impede rolagem horizontal */
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    font-size: var(--fonte-base);
+    background-color: var(--fundo);
+    color: var(--texto);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Onda decorativa: fica atrás do conteúdo e diminui em telas pequenas */
+.onda {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: clamp(130px, 26vw, 340px);
+    height: auto;
+    z-index: 0;
+    pointer-events: none;             /* não atrapalha cliques */
+}
+
+/* =========================================================
+   TOPO
+   ========================================================= */
+.topo {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px clamp(16px, 4vw, 40px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;                  /* se faltar espaço, quebra a linha */
+    gap: 16px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icone {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.logo-texto {
+    font-size: calc(var(--fonte-base) * 1.1);
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.acessibilidade {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-acess {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--borda);
+    border-radius: 11px;
+    background-color: var(--campo-fundo);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.95);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 6px var(--sombra);
+    transition: border-color 0.2s;
+}
+
+.btn-acess:hover {
+    border-color: var(--roxo);
+}
+
+.btn-acess svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+/* Ícone do tema: sol rosa no claro, lua roxa no escuro */
+.icone-sol { color: var(--rosa); }
+.icone-lua { color: var(--roxo); fill: var(--roxo) !important; display: none; }
+
+[data-tema="escuro"] .icone-sol { display: none; }
+[data-tema="escuro"] .icone-lua { display: block; }
+
+/* =========================================================
+   CONTEÚDO / FORMULÁRIO
+   max-width impede que o formulário estique em telas grandes
+   ========================================================= */
+.conteudo {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 448px;
+    margin: 0 auto;
+    padding: 8px 20px 112px;
+}
+
+.titulo {
+    text-align: center;
+    font-size: calc(var(--fonte-base) * 1.9);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    margin: 32px 0 10px;
+    overflow-wrap: break-word;        /* com letra grande, quebra em vez de sair da tela */
+}
+
+.barras {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 36px;
+}
+
+.barra {
+    width: 35px;
+    height: 5px;
+    border-radius: 16px;
+}
+
+.barra-rosa { background-color: var(--rosa); }
+.barra-roxa { background-color: var(--roxo); }
+
+.campo {
+    margin-bottom: 16px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: calc(var(--fonte-base) * 0.8);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Caixa que envolve ícone + input (+ olho) — altura fixa */
+.caixa {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid var(--borda);
+    border-radius: 13px;
+    background-color: var(--campo-fundo);
+    box-shadow: 0 1px 4px var(--sombra);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Quando o usuário clica dentro do campo */
+.caixa:focus-within {
+    border-color: var(--roxo);
+    box-shadow: 0 0 0 3px rgba(123, 75, 183, 0.2);
+}
+
+/* Quando o campo tem erro (classe colocada pelo JavaScript) */
+.caixa.invalido {
+    border-color: var(--erro);
+}
+
+.icone,
+.btn-olho svg {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.icone {
+    color: var(--texto-suave);
+}
+
+.caixa input {
+    flex: 1;
+    min-width: 0;                     /* deixa o input encolher em telas pequenas */
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--texto);
+    font-family: inherit;
+    font-size: calc(var(--fonte-base) * 0.95);   /* texto digitado e placeholder */
+}
+
+.caixa input::placeholder {
+    color: var(--placeholder);
+}
+
+/* Botão do olho (mostrar/ocultar senha) */
+.btn-olho {
+    display: flex;
+    padding: 4px;
+    border: none;
+    background: none;
+    color: var(--texto-suave);
+    cursor: pointer;
+}
+
+.btn-olho:hover {
+    color: var(--roxo);
+}
+
+/* O risco no olho só aparece quando a senha está visível */
+.btn-olho .risco { display: none; }
+.btn-olho.ativo .risco { display: inline; }
+
+/* Mensagens de erro */
+.erro {
+    display: block;
+    margin-top: 6px;
+    color: var(--erro);
+    font-size: calc(var(--fonte-base) * 0.8);
+}
+
+.erro:empty {
+    display: none;                    /* sem erro = não ocupa espaço */
+}
+
+/* Botão Entrar — altura fixa, roxo como na referência */
+.btn-entrar {
+    width: 100%;
+    height: 52px;
+    margin-top: 12px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 13px;
+    background-color: var(--roxo);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: var(--fonte-base);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(123, 75, 183, 0.35);
+    transition: transform 0.15s, filter 0.15s;
+}
+
+.btn-entrar:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+}
+
+.btn-entrar:disabled {
+    opacity: 0.7;
+    cursor: default;
+    transform: none;
+}
+
+/* Mensagem de sucesso */
+.sucesso {
+    margin: 14px 0 0;
+    text-align: center;
+    color: var(--sucesso);
+    font-size: var(--fonte-base);
+    font-weight: 700;
+}
+
+.sucesso:empty {
+    display: none;
+}
+
+/* "Ainda não possui uma conta? Cadastre-se" */
+.cadastre {
+    margin-top: 20px;
+    text-align: center;
+    font-size: calc(var(--fonte-base) * 0.95);
+}
+
+.cadastre a {
+    color: var(--roxo-link);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.cadastre a:hover {
+    text-decoration: underline;
+}
+
+/* Contorno visível ao navegar com o teclado (Tab) */
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--roxo);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVIDADE — celulares pequenos
+   ========================================================= */
+@media (max-width: 400px) {
+    .logo-icone {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo-texto {
+        font-size: var(--fonte-base);
+    }
+
+    .btn-acess {
+        min-width: 36px;
+        height: 36px;
+    }
+
+    .titulo {
+        font-size: calc(var(--fonte-base) * 1.6);
+    }
+
+    .conteudo {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

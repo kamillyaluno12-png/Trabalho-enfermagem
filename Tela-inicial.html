@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prontuário | Prontuário Eletrônico de Enfermagem</title>
+
+    <!-- Ligação com o arquivo de estilos -->
+    <link rel="stylesheet" href="Tela-inicial.css">
+</head>
+<body>
+
+    <!-- Onda decorativa no canto inferior esquerdo (apenas enfeite) -->
+    <svg class="onda" viewBox="0 0 300 260" aria-hidden="true">
+        <defs>
+            <linearGradient id="gradienteOnda" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#9b6bd6" />
+                <stop offset="100%" stop-color="#6a3aa8" />
+            </linearGradient>
+        </defs>
+        <path d="M0 95 C 70 110, 130 150, 150 200 C 162 230, 172 248, 178 260 L 0 260 Z" fill="url(#gradienteOnda)" />
+        <path d="M0 45 C 95 60, 175 120, 205 195 C 216 222, 224 244, 230 260" fill="none" stroke="#e75ea8" stroke-width="3" />
+    </svg>
+
+    <!-- ===================== TOPO ===================== -->
+    <header class="topo">
+        <div class="logo">
+            <svg class="logo-icone" viewBox="0 0 24 24" aria-hidden="true">
+                <defs>
+                    <linearGradient id="gradienteLogo" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#e75ea8" />
+                        <stop offset="100%" stop-color="#7b4bb7" />
+                    </linearGradient>
+                </defs>
+                <path d="M12 20.5 L4.6 13.3 C2.6 11.3 2.5 8 4.4 6 C6.3 4 9.5 4 11.4 6 L12 6.6 L12.6 6 C14.5 4 17.7 4 19.6 6 C21.5 8 21.4 11.3 19.4 13.3 Z"
+                      fill="url(#gradienteLogo)" />
+                <path d="M3.5 12 H8.5 L10 9.5 L12 14.5 L13.8 10.5 L15 12 H20.5"
+                      fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="logo-texto">
+                <strong>PRONTUÁRIO ELETRÔNICO</strong>
+                <span>DE ENFERMAGEM</span>
+            </div>
+        </div>
+
+        <div class="ferramentas">
+            <button type="button" class="btn-acess" id="btnDiminuir" aria-label="Diminuir letras">A−</button>
+            <button type="button" class="btn-acess" id="btnAumentar" aria-label="Aumentar letras">A+</button>
+
+            <button type="button" class="btn-tema" id="btnTema" aria-label="Alternar para tema escuro">
+                <svg class="ic icone-sol" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                </svg>
+                <svg class="ic icone-lua" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+                </svg>
+                <span class="texto-claro">Tema claro</span>
+                <span class="texto-escuro">Tema escuro</span>
+            </button>
+
+            <button type="button" class="btn-sair" id="btnSair">
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" />
+                    <path d="M14 16l4-4-4-4M18 12H9" />
+                </svg>
+                Sair
+            </button>
+        </div>
+    </header>
+
+    <div class="estrutura">
+
+        <!-- ===================== MENU ===================== -->
+        <nav class="menu" aria-label="Menu principal">
+            <ul>
+                <li>
+                    <a href="Tela-inicial.html" class="ativo" aria-current="page">
+                        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="8" r="4" />
+                            <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+                        </svg>
+                        Paciente
+                    </a>
+                </li>
+                <li>
+                    <a href="Tela-prontuario.html">
+                        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="5" y="4" width="14" height="17" rx="2" />
+                            <path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h4" />
+                        </svg>
+                        Prontuário
+                    </a>
+                </li>
+                <li>
+                    <a href="Setembro-amarelo.html" class="link-setembro">
+                        <!-- Laço amarelo do Setembro Amarelo -->
+                        <svg class="ic laco" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 2c-2.2 0-4 1.8-4 4 0 1.6.9 3.3 2 5l-5 9 3 1.5 4-7 4 7 3-1.5-5-9c1.1-1.7 2-3.4 2-5 0-2.2-1.8-4-4-4Zm0 2.2c1 0 1.8.8 1.8 1.8 0 .9-.7 2.2-1.8 3.8-1.1-1.6-1.8-2.9-1.8-3.8 0-1 .8-1.8 1.8-1.8Z" />
+                        </svg>
+                        Setembro Amarelo
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- ===================== CONTEÚDO ===================== -->
+        <main class="principal">
+
+            <div class="cabecalho-pagina">
+                <div>
+                    <h1>Registro do paciente</h1>
+                    <p>Preencha as informações do paciente e da avaliação de enfermagem. <span class="obrigatorio">*</span> Campos obrigatórios.</p>
+                </div>
+
+                <!-- Resumo com os dados salvos -->
+                <div class="resumo">
+                    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+                    </svg>
+                    <div>
+                        <p>Prontuário: <strong id="resumoProntuario">—</strong></p>
+                        <p>ID do paciente: <strong id="resumoId">—</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <form id="formProntuario" novalidate>
+                <!-- O fieldset permite bloquear/desbloquear todos os campos de uma vez -->
+                <fieldset id="camposFormulario" class="campos">
+
+                    <!-- ========== 1. IDENTIFICAÇÃO DO PACIENTE ========== -->
+                    <section class="card">
+                        <div class="card-topo">
+                            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="8" r="4" />
+                                <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+                            </svg>
+                            <h2>Identificação do paciente</h2>
+                        </div>
+
+                        <div class="card-corpo grade">
+                            <div class="campo">
+                                <label class="rotulo" for="nome">Nome completo <span class="obrigatorio">*</span></label>
+                                <div class="caixa">
+                                    <svg class="ic ic-campo" viewBox="0 0 24 24" aria-hidden="true">
+                                        <circle cx="12" cy="8" r="4" />
+                                        <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+                                    </svg>
+                                    <input type="text" id="nome" placeholder="Digite o nome completo" maxlength="120" autocomplete="off">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="sexo">Sexo <span class="obrigatorio">*</span></label>
+                                <div class="caixa">
+                                    <select id="sexo">
+                                        <option value="">Selecione</option>
+                                        <option value="Feminino">Feminino</option>
+                                        <option value="Masculino">Masculino</option>
+                                    </select>
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="documento">CPF ou CNPJ <span class="obrigatorio">*</span></label>
+                                <div class="caixa">
+                                    <input type="text" id="documento" placeholder="Digite o CPF ou CNPJ" inputmode="numeric" autocomplete="off">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="telefone">Telefone <span class="obrigatorio">*</span></label>
+                                <div class="caixa">
+                                    <input type="text" id="telefone" placeholder="(00) 00000-0000" inputmode="numeric" autocomplete="off">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="endereco">Endereço <span class="obrigatorio">*</span></label>
+                                <div class="caixa">
+                                    <input type="text" id="endereco" placeholder="Rua, número, bairro, cidade, CEP" maxlength="150" autocomplete="off">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="numeroProntuario">Número do prontuário <span class="obrigatorio">*</span></label>
+                                <div class="caixa">
+                                    <input type="text" id="numeroProntuario" placeholder="Digite o número do prontuário" inputmode="numeric" autocomplete="off">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="dataNascimento">Data de nascimento <span class="obrigatorio">*</span></label>
+                                <div class="caixa">
+                                    <input type="date" id="dataNascimento" min="1900-01-01">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="idPaciente">ID do paciente <span class="obrigatorio">*</span></label>
+                                <div class="caixa">
+                                    <input type="text" id="idPaciente" placeholder="Digite o ID do paciente" inputmode="numeric" autocomplete="off">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ========== 2. ANAMNESE ========== -->
+                    <section class="card">
+                        <div class="card-topo">
+                            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="5" y="4" width="14" height="17" rx="2" />
+                                <path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h4" />
+                            </svg>
+                            <h2>Anamnese</h2>
+                        </div>
+
+                        <div class="card-corpo grade-2">
+                            <div class="campo">
+                                <label class="rotulo" for="queixaPrincipal">Queixa principal <span class="obrigatorio">*</span></label>
+                                <div class="caixa caixa-texto">
+                                    <textarea id="queixaPrincipal" rows="2" maxlength="500" placeholder="Digite a queixa principal"></textarea>
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="historiaDoenca">História da doença / condição atual <span class="obrigatorio">*</span></label>
+                                <div class="caixa caixa-texto">
+                                    <textarea id="historiaDoenca" rows="4" maxlength="2000" placeholder="Descreva a história da doença ou condição atual"></textarea>
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <span class="rotulo" id="rotuloAlergias">Alergias <span class="obrigatorio">*</span></span>
+                                <div class="opcoes" role="radiogroup" aria-labelledby="rotuloAlergias">
+                                    <label class="opcao"><input type="radio" name="alergias" value="Sim"> Sim</label>
+                                    <label class="opcao"><input type="radio" name="alergias" value="Não"> Não</label>
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="especificacaoAlergia">Especificação da alergia</label>
+                                <div class="caixa">
+                                    <input type="text" id="especificacaoAlergia" maxlength="200" placeholder="Informe a alergia (se marcou Sim)" autocomplete="off">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <span class="rotulo" id="rotuloMedicamentos">Uso de medicamentos <span class="obrigatorio">*</span></span>
+                                <div class="opcoes" role="radiogroup" aria-labelledby="rotuloMedicamentos">
+                                    <label class="opcao"><input type="radio" name="usoMedicamentos" value="Sim"> Sim</label>
+                                    <label class="opcao"><input type="radio" name="usoMedicamentos" value="Não"> Não</label>
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label class="rotulo" for="medicamentos">Quais medicamentos?</label>
+                                <div class="caixa">
+                                    <input type="text" id="medicamentos" maxlength="300" placeholder="Informe os medicamentos (se marcou Sim)" autocomplete="off">
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ========== 3. EXAME CLÍNICO ========== -->
+                    <section class="card">
+                        <div class="card-topo">
+                            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M6 3v5a4 4 0 0 0 8 0V3" />
+                                <path d="M10 12v3a5 5 0 0 0 10 0v-2" />
+                                <circle cx="20" cy="11" r="2" />
+                            </svg>
+                            <h2>Exame clínico</h2>
+                        </div>
+
+                        <div class="card-corpo">
+                            <div class="grade">
+                                <div class="campo">
+                                    <label class="rotulo" for="estadoGeral">Estado geral <span class="obrigatorio">*</span></label>
+                                    <div class="caixa">
+                                        <input type="text" id="estadoGeral" maxlength="200" placeholder="Descreva o estado geral" autocomplete="off">
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="nivelConsciencia">Nível de consciência <span class="obrigatorio">*</span></label>
+                                    <div class="caixa">
+                                        <input type="text" id="nivelConsciencia" maxlength="200" placeholder="Descreva o nível de consciência" autocomplete="off">
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="orientacao">Orientação <span class="obrigatorio">*</span></label>
+                                    <div class="caixa">
+                                        <input type="text" id="orientacao" maxlength="200" placeholder="Descreva a orientação" autocomplete="off">
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+                            </div>
+
+                            <h3 class="subtitulo">Avaliação física</h3>
+
+                            <div class="grade-2">
+                                <div class="campo">
+                                    <label class="rotulo" for="peleMucosa">Pele e mucosa</label>
+                                    <div class="caixa caixa-texto">
+                                        <textarea id="peleMucosa" rows="2" maxlength="1000" placeholder="Descreva a avaliação"></textarea>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="cabecaPescoco">Cabeça e pescoço</label>
+                                    <div class="caixa caixa-texto">
+                                        <textarea id="cabecaPescoco" rows="2" maxlength="1000" placeholder="Descreva a avaliação"></textarea>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="sistemaRespiratorio">Sistema respiratório</label>
+                                    <div class="caixa caixa-texto">
+                                        <textarea id="sistemaRespiratorio" rows="2" maxlength="1000" placeholder="Descreva a avaliação"></textarea>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="sistemaCardiovascular">Sistema cardiovascular</label>
+                                    <div class="caixa caixa-texto">
+                                        <textarea id="sistemaCardiovascular" rows="2" maxlength="1000" placeholder="Descreva a avaliação"></textarea>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="abdomen">Abdômen</label>
+                                    <div class="caixa caixa-texto">
+                                        <textarea id="abdomen" rows="2" maxlength="1000" placeholder="Descreva a avaliação"></textarea>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ========== 4. SINAIS VITAIS ========== -->
+                    <section class="card">
+                        <div class="card-topo">
+                            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M3 12h4l2-5 4 10 2-5h6" />
+                            </svg>
+                            <h2>Sinais vitais</h2>
+                        </div>
+
+                        <div class="card-corpo">
+                            <div class="grade">
+                                <div class="campo">
+                                    <label class="rotulo" for="dataAfericao">Data da aferição <span class="obrigatorio">*</span></label>
+                                    <div class="caixa">
+                                        <input type="date" id="dataAfericao" min="1900-01-01">
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="horario">Horário <span class="obrigatorio">*</span></label>
+                                    <div class="caixa">
+                                        <input type="time" id="horario">
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+                            </div>
+
+                            <div class="grade espaco-topo">
+                                <div class="campo">
+                                    <label class="rotulo" for="pressaoArterial">Pressão arterial</label>
+                                    <div class="caixa">
+                                        <input type="text" id="pressaoArterial" placeholder="Ex.: 120/80" inputmode="numeric" autocomplete="off">
+                                        <span class="unidade">mmHg</span>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="frequenciaCardiaca">Frequência cardíaca</label>
+                                    <div class="caixa">
+                                        <input type="text" id="frequenciaCardiaca" placeholder="Ex.: 72" inputmode="numeric" autocomplete="off">
+                                        <span class="unidade">bpm</span>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="frequenciaRespiratoria">Frequência respiratória</label>
+                                    <div class="caixa">
+                                        <input type="text" id="frequenciaRespiratoria" placeholder="Ex.: 16" inputmode="numeric" autocomplete="off">
+                                        <span class="unidade">irpm</span>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="temperatura">Temperatura</label>
+                                    <div class="caixa">
+                                        <input type="text" id="temperatura" placeholder="Ex.: 36,5" inputmode="decimal" autocomplete="off">
+                                        <span class="unidade">°C</span>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+
+                                <div class="campo">
+                                    <label class="rotulo" for="saturacaoO2">Saturação de O<sub>2</sub></label>
+                                    <div class="caixa">
+                                        <input type="text" id="saturacaoO2" placeholder="Ex.: 98" inputmode="numeric" autocomplete="off">
+                                        <span class="unidade">%</span>
+                                    </div>
+                                    <span class="erro"></span>
+                                </div>
+                            </div>
+
+                            <!-- Escala de dor: só é possível escolher de 0 a 10 -->
+                            <div class="campo espaco-topo">
+                                <span class="rotulo" id="rotuloDor">Dor (0 = sem dor, 10 = dor máxima)</span>
+                                <div class="escala-dor" role="radiogroup" aria-labelledby="rotuloDor">
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="0"><span>0</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="1"><span>1</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="2"><span>2</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="3"><span>3</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="4"><span>4</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="5"><span>5</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="6"><span>6</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="7"><span>7</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="8"><span>8</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="9"><span>9</span></label>
+                                    <label class="dor-opcao"><input type="radio" name="dor" value="10"><span>10</span></label>
+                                </div>
+                                <span class="erro"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                </fieldset>
+
+                <!-- Mensagens de sucesso / aviso -->
+                <p class="mensagem" id="mensagem" role="status"></p>
+
+                <!-- ========== 5. BOTÕES ========== -->
+                <div class="acoes">
+                    <button type="button" class="btn btn-cancelar" id="btnCancelar">
+                        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                        Cancelar
+                    </button>
+
+                    <div class="acoes-direita">
+                        <button type="button" class="btn btn-editar" id="btnEditar">
+                            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4Z" /><path d="M14 6l4 4" /></svg>
+                            Editar
+                        </button>
+                        <button type="submit" class="btn btn-salvar" id="btnSalvar">
+                            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" />
+                                <path d="M7 3v5h8V3M7 21v-7h10v7" />
+                            </svg>
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <!-- Ligação com o arquivo JavaScript -->
+    <script src="Tela-inicial.js"></script>
+</body>
+</html>
